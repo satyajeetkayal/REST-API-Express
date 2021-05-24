@@ -39,7 +39,8 @@ router.post("/items", (req, res) => {
   if (!req.body.title || req.body.title.length == 0) {
     res.status(204).send("Title is required");
     return;
-  } else if (!req.body.description || req.body.description == 0) {
+  }
+  if (!req.body.description || req.body.description.length == 0) {
     res.status(204).send("Description is required");
     return;
   } else {
