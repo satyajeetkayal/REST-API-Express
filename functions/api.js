@@ -64,6 +64,34 @@ router.delete("/items/:id", (req, res) => {
   }
 });
 
+router.put("/items/:id", (req, res) => {
+  var updateItems = products
+    .map(function (product) {
+      return product.id;
+    })
+    .indexOf(parseInt(req.params.id));
+
+  if (updateItems === -1) {
+    products.push({
+      id: req.params.id,
+      title: req.params.title,
+    });
+    res.json({
+      message: "New item created.",
+      location: "/items/" + req.params.id,
+    });
+  } else {
+    movies[updateItems] = {
+      id: req.params.id,
+      title: req.params.title,
+    };
+    res.json({
+      message: "item id " + req.params.id + " updated.",
+      location: "/items/" + req.params.id,
+    });
+  }
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
