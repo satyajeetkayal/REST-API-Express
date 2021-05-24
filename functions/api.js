@@ -36,7 +36,7 @@ router.post("/items", (req, res) => {
       title: req.body.title,
     };
     products.push(product);
-    res.send("Item Added Successfully.", product);
+    res.send({ message: "Item Added Successfully." + product });
   }
 });
 
