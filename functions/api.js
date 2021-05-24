@@ -64,31 +64,48 @@ router.delete("/items/:id", (req, res) => {
   }
 });
 
-router.put("/items/:id", (req, res) => {
-  var updateItems = products
-    .map(function (product) {
-      return product.id;
-    })
-    .indexOf(parseInt(req.params.id));
+// router.put("/items/:id", (req, res) => {
+//   var updateItems = products
+//     .map(function (product) {
+//       return product.id;
+//     })
+//     .indexOf(parseInt(req.params.id));
 
-  if (updateItems === 1) {
-    products.push({
-      id: req.params.id,
-      title: req.params.title,
-    });
-    res.json({
-      message: "New item created.",
-      location: "/items/" + req.params.id,
-    });
+//   if (updateItems === 1) {
+//     products.push({
+//       id: req.params.id,
+//       title: req.params.title,
+//     });
+//     res.json({
+//       message: "New item created.",
+//       location: "/items/" + req.params.id,
+//     });
+//   } else {
+//     products[updateItems] = {
+//       id: req.params.id,
+//       title: req.params.title,
+//     };
+//     res.json({
+//       message: "item id " + req.params.id + " updated.",
+//       location: "/items/" + req.params.id,
+//     });
+//   }
+// });
+
+router.put("/items/:id", (req, res) => {
+  var id = parseInt(req.params.id);
+  var updatedItems = req.body;
+  if (products["customer" + id] != null) {
+    products["customer" + id] = updatedItems;
+
+    console.log(
+      "--->Update Successfully, customers: \n" +
+        JSON.stringify(products, null, 4)
+    );
+
+    res.end("Update Successfully! \n" + JSON.stringify(updatedItems, null, 4));
   } else {
-    products[updateItems] = {
-      id: req.params.id,
-      title: req.params.title,
-    };
-    res.json({
-      message: "item id " + req.params.id + " updated.",
-      location: "/items/" + req.params.id,
-    });
+    res.end("Don't Exist Customer:\n:" + JSON.stringify(updatedItems, null, 4));
   }
 });
 
