@@ -81,7 +81,7 @@ router.put("/items/:id", (req, res) => {
       location: "/items/" + req.params.id,
     });
   } else {
-    movies[updateItems] = {
+    products[updateItems] = {
       id: req.params.id,
       title: req.params.title,
     };
