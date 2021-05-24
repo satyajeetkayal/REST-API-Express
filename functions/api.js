@@ -30,13 +30,14 @@ router.post("/items", (req, res) => {
   if (!req.body.title == 0) {
     res.status(404).send("Title is required");
     return;
+  } else {
+    const product = {
+      id: products.length + 1,
+      title: req.body.title,
+    };
+    products.push(product);
+    res.send(product);
   }
-  const product = {
-    id: products.length + 1,
-    title: req.body.title,
-  };
-  products.push(product);
-  res.send(product);
 });
 
 router.get("/items/:id", (req, res) => {
