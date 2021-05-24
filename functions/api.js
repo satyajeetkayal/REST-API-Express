@@ -10,11 +10,20 @@ const upload = multer();
 const products = [
   {
     id: 1,
-    title: "ADDIDAS",
+    title: "Diverse",
+    description: "Diverse Men's Regular Formal Shirt",
+    price: 719,
+    image:
+      "https://images-na.ssl-images-amazon.com/images/I/81qlnA0rJEL._UL1500_.jpg",
   },
   {
     id: 2,
-    title: "REEBOK",
+    title: "Ontarious",
+    description:
+      "Ontarious Look Men's Cotton Digital Printed Half Sleeves Shirt",
+    price: 499,
+    image:
+      "https://images-na.ssl-images-amazon.com/images/I/81L%2BUQEkG7S._UL1500_.jpg",
   },
 ];
 
@@ -27,13 +36,25 @@ router.get("/items", (req, res) => {
 });
 
 router.post("/items", (req, res) => {
-  if (!req.body.title || req.body.title.length == 0) {
+  if (
+    !req.body.title ||
+    req.body.description ||
+    req.body.price ||
+    req.body.image ||
+    req.body.title.length ||
+    req.body.description ||
+    req.body.price ||
+    req.body.image == 0
+  ) {
     res.status(204).send("Title is required");
     return;
   } else {
     const product = {
       id: products.length + 1,
       title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      image: req.body.image,
     };
     products.push(product);
     res.status(201).send({
@@ -73,7 +94,16 @@ router.delete("/items/:id", (req, res) => {
 });
 
 router.put("/items/:id", (req, res) => {
-  if (!req.body.title || req.body.title.length == 0) {
+  if (
+    !req.body.title ||
+    req.body.description ||
+    req.body.price ||
+    req.body.image ||
+    req.body.title.length ||
+    req.body.description ||
+    req.body.price ||
+    req.body.image == 0
+  ) {
     res.status(204).send("Title is Required");
     return;
   } else {
@@ -81,6 +111,9 @@ router.put("/items/:id", (req, res) => {
     const updatedItems = {
       id: id,
       title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      image: req.body.image,
     };
     for (let i = 0; i < products.length; i++) {
       if (products[i].id === id) {
