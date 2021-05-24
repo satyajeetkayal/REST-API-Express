@@ -12,6 +12,10 @@ const products = [
     id: 1,
     title: "ADDIDAS",
   },
+  {
+    id: 2,
+    title: "REEBOK",
+  },
 ];
 
 router.get("/", (req, res) => {
@@ -32,9 +36,32 @@ router.post("/items", (req, res) => {
 });
 
 router.get("/items/:id", (req, res) => {
-  const product = products.find((c) => c.id === parseInt(req.params.id));
-  if (!product) res.status(404).send("Item not found");
-  res.send(req.params.title);
+  var itemsData = products.filter((product) => {
+    if (product.id == req.params.id) {
+      return true;
+    }
+  });
+  if (itemsData.length == 1) {
+    res.json(itemsData[0]);
+  } else {
+    res.status(404);
+    res.json({ message: "items Not Found" });
+  }
+});
+
+router.delete("/items/:id", (req, res) => {
+  var deleteItems = products
+    .map((product) => {
+      return product.id;
+    })
+    .indexOf(req.params.id);
+
+  if (deleteItems === -1) {
+    res.json({ message: "Not found" });
+  } else {
+    movies.splice(deleteItems, 1);
+    res.send({ message: "item id " + req.params.id + " removed." });
+  }
 });
 
 app.use(bodyParser.json());
