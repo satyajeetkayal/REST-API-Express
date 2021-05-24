@@ -31,18 +31,10 @@ router.post("/items", (req, res) => {
   res.send(product);
 });
 
-router.get("/:id([0-9]{3,})", function (req, res) {
-  var itemsData = products.filter(function (product) {
-    if (product.id == req.params.id) {
-      return true;
-    }
-  });
-  if (itemsData.length == 1) {
-    res.json(itemsData[0]);
-  } else {
-    res.status(404); //Set status to 404 as movie was not found
-    res.json({ message: "Not Found" });
-  }
+router.get("/items/:id", (req, res) => {
+  const product = products.find((c) => c.id === parseInt(req.params.id));
+  if (!product) res.status(404).send("Item not found");
+  res.send(req.params);
 });
 
 app.use(bodyParser.json());
