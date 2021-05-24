@@ -59,7 +59,7 @@ router.delete("/items/:id", (req, res) => {
   if (deleteItems === 1) {
     res.json({ message: "Not found" });
   } else {
-    movies.splice(deleteItems, 1);
+    products.splice(deleteItems, 1);
     res.send({ message: "item id " + req.params.id + " removed." });
   }
 });
