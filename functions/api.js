@@ -92,18 +92,26 @@ router.delete("/items/:id", (req, res) => {
 //   }
 // });
 
-app.put("/items/:id", (req, res) => {
-  let itemsId = req.params.id;
-  let product = products.filter((product) => {
-    return product.id == itemsId;
-  })[0];
-  const index = products.indexOf(product);
-  let keys = Object.keys(req.body);
-  keys.forEach((key) => {
-    product[key] = req.body[key];
+router.put("/items/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const updatedUser = {
+    id: id,
+    title: req.body.title,
+  };
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id === id) {
+      products[i] = updatedUser;
+      return res.status(201).send({
+        success: "true",
+        message: "user added successfully",
+        updatedUser,
+      });
+    }
+  }
+  return res.status(404).send({
+    success: "true",
+    message: "error in update",
   });
-  products[index] = product;
-  res.json(products[index]);
 });
 
 app.use(bodyParser.json());
