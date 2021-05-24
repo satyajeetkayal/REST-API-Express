@@ -99,13 +99,12 @@ router.put("/items/:id", (req, res) => {
     products["customer" + id] = updatedItems;
 
     console.log(
-      "--->Update Successfully, customers: \n" +
-        JSON.stringify(products, null, 4)
+      "--->Update Successfully, items: \n" + JSON.stringify(products, null, 4)
     );
 
     res.end("Update Successfully! \n" + JSON.stringify(updatedItems, null, 4));
   } else {
-    res.end("Don't Exist Customer:\n:" + JSON.stringify(updatedItems, null, 4));
+    res.end("Don't Exist Items:\n:" + JSON.stringify(updatedItems, null, 4));
   }
 });
 
