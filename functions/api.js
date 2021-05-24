@@ -27,7 +27,7 @@ router.get("/items", (req, res) => {
 });
 
 router.post("/items", (req, res) => {
-  if (!req.body.title == 0) {
+  if (!req.body.title || req.body.title.length == 0) {
     res.status(404).send("Title is required");
     return;
   } else {
