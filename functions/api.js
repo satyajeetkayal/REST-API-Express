@@ -12,6 +12,7 @@ const products = [
     id: 1,
     title: "ADDIDAS",
   },
+  {},
 ];
 
 router.get("/", (req, res) => {
