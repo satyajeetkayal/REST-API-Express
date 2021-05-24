@@ -56,7 +56,7 @@ router.delete("/items/:id", (req, res) => {
     })
     .indexOf(req.params.id);
 
-  if (deleteItems === -1) {
+  if (deleteItems === 1) {
     res.json({ message: "Not found" });
   } else {
     movies.splice(deleteItems, 1);
