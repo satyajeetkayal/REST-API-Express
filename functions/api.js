@@ -36,7 +36,7 @@ router.post("/items", (req, res) => {
       title: req.body.title,
     };
     products.push(product);
-    res.send(product);
+    res.send("Item Added Successfully.", product);
   }
 });
 
@@ -90,8 +90,7 @@ router.put("/items/:id", (req, res) => {
       }
     }
     return res.status(404).send({
-      success: "true",
-      message: "error in update",
+      message: "error in item update",
     });
   }
 });
