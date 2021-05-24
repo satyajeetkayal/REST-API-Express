@@ -70,25 +70,30 @@ router.delete("/items/:id", (req, res) => {
 });
 
 router.put("/items/:id", (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const updatedItems = {
-    id: id,
-    title: req.body.title,
-  };
-  for (let i = 0; i < products.length; i++) {
-    if (products[i].id === id) {
-      products[i] = updatedItems;
-      return res.status(201).send({
-        success: "true",
-        message: "item added successfully",
-        updatedItems,
-      });
+  if (!req.body.title || req.body.title.length == 0) {
+    res.status(404).send("Title is Required");
+    return;
+  } else {
+    const id = parseInt(req.params.id, 10);
+    const updatedItems = {
+      id: id,
+      title: req.body.title,
+    };
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === id) {
+        products[i] = updatedItems;
+        return res.status(201).send({
+          success: "true",
+          message: "item added successfully",
+          updatedItems,
+        });
+      }
     }
+    return res.status(404).send({
+      success: "true",
+      message: "error in update",
+    });
   }
-  return res.status(404).send({
-    success: "true",
-    message: "error in update",
-  });
 });
 
 app.use(bodyParser.json());
