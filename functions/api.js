@@ -36,16 +36,7 @@ router.get("/items", (req, res) => {
 });
 
 router.post("/items", (req, res) => {
-  if (
-    !req.body.title ||
-    !req.body.description ||
-    !req.body.price ||
-    !req.body.image ||
-    req.body.title.length ||
-    req.body.description.length ||
-    req.body.price.length ||
-    req.body.image.length == 0
-  ) {
+  if (!req.body.title || req.body.title.length == 0) {
     res.status(204).send("Title is required");
     return;
   } else {
