@@ -31,6 +31,20 @@ router.post("/items", (req, res) => {
   res.send(product);
 });
 
+router.get("/:id([0-9]{3,})", function (req, res) {
+  var itemsData = movies.filter(function (movie) {
+    if (movie.id == req.params.id) {
+      return true;
+    }
+  });
+  if (itemsData.length == 1) {
+    res.json(itemsData[0]);
+  } else {
+    res.status(404); //Set status to 404 as movie was not found
+    res.json({ message: "Not Found" });
+  }
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
