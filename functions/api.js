@@ -19,16 +19,16 @@ const products = [
 ];
 
 router.get("/", (req, res) => {
-  res.send("Welcome to Express REST API");
+  res.status(200).send("Welcome to Express REST API");
 });
 
 router.get("/items", (req, res) => {
-  res.send(products);
+  res.status(200).send(products);
 });
 
 router.post("/items", (req, res) => {
   if (!req.body.title || req.body.title.length == 0) {
-    res.status(404).send("Title is required");
+    res.status(204).send("Title is required");
     return;
   } else {
     const product = {
@@ -36,7 +36,10 @@ router.post("/items", (req, res) => {
       title: req.body.title,
     };
     products.push(product);
-    res.send({ message: "Item Added Successfully." + product });
+    res.status(201).send({
+      message: "item added successfully",
+      product,
+    });
   }
 });
 
@@ -62,7 +65,7 @@ router.delete("/items/:id", (req, res) => {
     .indexOf(req.params.id);
 
   if (deleteItems === 1) {
-    res.json({ message: "Not found" });
+    res.status(404).json({ message: "Not found" });
   } else {
     products.splice(deleteItems, 1);
     res.send({ message: "item id " + req.params.id + " removed." });
@@ -71,7 +74,7 @@ router.delete("/items/:id", (req, res) => {
 
 router.put("/items/:id", (req, res) => {
   if (!req.body.title || req.body.title.length == 0) {
-    res.status(404).send("Title is Required");
+    res.status(204).send("Title is Required");
     return;
   } else {
     const id = parseInt(req.params.id, 10);
@@ -84,7 +87,7 @@ router.put("/items/:id", (req, res) => {
         products[i] = updatedItems;
         return res.status(201).send({
           success: "true",
-          message: "item added successfully",
+          message: "item Updated successfully",
           updatedItems,
         });
       }
