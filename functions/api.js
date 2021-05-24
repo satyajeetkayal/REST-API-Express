@@ -39,10 +39,6 @@ router.post("/items", (req, res) => {
   if (!req.body.title || req.body.title.length == 0) {
     res.status(204).send("Title is required");
     return;
-  }
-  if (!req.body.description || req.body.description.length == 0) {
-    res.status(204).send("Description is required");
-    return;
   } else {
     const product = {
       id: products.length + 1,
@@ -89,16 +85,7 @@ router.delete("/items/:id", (req, res) => {
 });
 
 router.put("/items/:id", (req, res) => {
-  if (
-    !req.body.title ||
-    req.body.description ||
-    req.body.price ||
-    req.body.image ||
-    req.body.title.length ||
-    req.body.description ||
-    req.body.price ||
-    req.body.image == 0
-  ) {
+  if (!req.body.title || req.body.title.length == 0) {
     res.status(204).send("Title is Required");
     return;
   } else {
