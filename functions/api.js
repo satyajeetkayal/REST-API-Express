@@ -92,20 +92,18 @@ router.delete("/items/:id", (req, res) => {
 //   }
 // });
 
-router.put("/items/:id", (req, res) => {
-  var id = parseInt(req.params.id);
-  var updatedItems = req.body;
-  if (products["customer" + id] != null) {
-    products["customer" + id] = updatedItems;
-
-    console.log(
-      "--->Update Successfully, items: \n" + JSON.stringify(products, null, 4)
-    );
-
-    res.end("Update Successfully! \n" + JSON.stringify(updatedItems, null, 4));
-  } else {
-    res.end("Don't Exist Items:\n:" + JSON.stringify(updatedItems, null, 4));
-  }
+app.put("/items/:id", (req, res) => {
+  let itemsId = req.params.id;
+  let product = products.filter((product) => {
+    return product.id == itemsId;
+  })[0];
+  const index = products.indexOf(product);
+  let keys = Object.keys(req.body);
+  keys.forEach((key) => {
+    product[key] = req.body[key];
+  });
+  products[index] = product;
+  res.json(products[index]);
 });
 
 app.use(bodyParser.json());
