@@ -32,8 +32,8 @@ router.post("/items", (req, res) => {
 });
 
 router.get("/:id([0-9]{3,})", function (req, res) {
-  var itemsData = movies.filter(function (movie) {
-    if (movie.id == req.params.id) {
+  var itemsData = products.filter(function (product) {
+    if (product.id == req.params.id) {
       return true;
     }
   });
