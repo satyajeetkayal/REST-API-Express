@@ -32,12 +32,9 @@ router.post("/items", (req, res) => {
 });
 
 router.get("/items/:id", (req, res) => {
-  const product = products.find(
-    (c) => c.id === parseInt(req.params.id),
-    req.params.title
-  );
+  const product = products.find((c) => c.id === parseInt(req.params.id));
   if (!product) res.status(404).send("Item not found");
-  res.send(req.params);
+  res.send(req.params.title);
 });
 
 app.use(bodyParser.json());
