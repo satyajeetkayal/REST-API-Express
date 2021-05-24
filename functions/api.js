@@ -71,7 +71,7 @@ router.put("/items/:id", (req, res) => {
     })
     .indexOf(parseInt(req.params.id));
 
-  if (updateItems === -1) {
+  if (updateItems === 1) {
     products.push({
       id: req.params.id,
       title: req.params.title,
