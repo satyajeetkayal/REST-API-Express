@@ -42,9 +42,9 @@ router.post("/items", (req, res) => {
     !req.body.price ||
     !req.body.image ||
     req.body.title.length ||
-    req.body.description ||
-    req.body.price ||
-    req.body.image == 0
+    req.body.description.length ||
+    req.body.price.length ||
+    req.body.image.length == 0
   ) {
     res.status(204).send("Title is required");
     return;
