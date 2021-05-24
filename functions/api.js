@@ -38,9 +38,9 @@ router.get("/items", (req, res) => {
 router.post("/items", (req, res) => {
   if (
     !req.body.title ||
-    req.body.description ||
-    req.body.price ||
-    req.body.image ||
+    !req.body.description ||
+    !req.body.price ||
+    !req.body.image ||
     req.body.title.length ||
     req.body.description ||
     req.body.price ||
