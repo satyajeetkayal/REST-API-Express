@@ -27,6 +27,9 @@ router.get("/items", (req, res) => {
 });
 
 router.post("/items", (req, res) => {
+  if (req.body.title == null) {
+    return res.status(404);
+  }
   const product = {
     id: products.length + 1,
     title: req.body.title,
@@ -64,47 +67,19 @@ router.delete("/items/:id", (req, res) => {
   }
 });
 
-// router.put("/items/:id", (req, res) => {
-//   var updateItems = products
-//     .map(function (product) {
-//       return product.id;
-//     })
-//     .indexOf(parseInt(req.params.id));
-
-//   if (updateItems === 1) {
-//     products.push({
-//       id: req.params.id,
-//       title: req.params.title,
-//     });
-//     res.json({
-//       message: "New item created.",
-//       location: "/items/" + req.params.id,
-//     });
-//   } else {
-//     products[updateItems] = {
-//       id: req.params.id,
-//       title: req.params.title,
-//     };
-//     res.json({
-//       message: "item id " + req.params.id + " updated.",
-//       location: "/items/" + req.params.id,
-//     });
-//   }
-// });
-
 router.put("/items/:id", (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const updatedUser = {
+  const updatedItems = {
     id: id,
     title: req.body.title,
   };
   for (let i = 0; i < products.length; i++) {
     if (products[i].id === id) {
-      products[i] = updatedUser;
+      products[i] = updatedItems;
       return res.status(201).send({
         success: "true",
-        message: "user added successfully",
-        updatedUser,
+        message: "item added successfully",
+        updatedItems,
       });
     }
   }
